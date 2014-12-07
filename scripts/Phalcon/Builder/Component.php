@@ -112,6 +112,20 @@ abstract class Component
      *
      * @return boolean
      */
+    public function trimDirPath($path)
+    {
+        // remove .. if present
+        if (substr($path, 0, 3) == "../")
+            $path = substr($path, 3);
+        
+        return $path;
+    }
+
+    /**
+     * Check if the script is running on Console mode
+     *
+     * @return boolean
+     */
     public function isConsole()
     {
         return !isset($_SERVER['SERVER_SOFTWARE']);

@@ -256,13 +256,16 @@ class Model extends Component
             $modelsDir = $this->_options['modelsDir'];
         }            
         
-        $modelsDir = rtrim(rtrim($modelsDir, '/'), '\\') . DIRECTORY_SEPARATOR;             
+        $modelsDir = rtrim(rtrim($modelsDir, '/'), '\\') . DIRECTORY_SEPARATOR;  
+        
+        // remove ^../ if present
+        $modelsDir = $this->trimDirPath($modelsDir);      
         
         if ($this->isAbsolutePath($modelsDir) == false) {
             $modelPath = $path . DIRECTORY_SEPARATOR . $modelsDir;
         } else {
             $modelPath = $modelsDir;
-        }                                 
+        }                         
 
         $methodRawCode = array();
         $className = $this->_options['className'];

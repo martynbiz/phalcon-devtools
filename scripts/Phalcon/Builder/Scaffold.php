@@ -178,6 +178,14 @@ class Scaffold extends Component
         $modelName = Text::camelize($name);
         $modelClass = $modelsNamespace . $modelName;
         $modelPath = $config->application->modelsDir.'/'.$modelName.'.php';
+        
+        
+        
+        
+        // remove ^../ if present
+        $modelPath = $this->trimDirPath($modelPath);
+        
+        
         if (!file_exists($modelPath)) {
 
             $modelBuilder = new ModelBuilder(array(
@@ -529,6 +537,9 @@ class Scaffold extends Component
     {
 
         $controllerPath = $options['controllersDir'] . $options['className'] . 'Controller.php';
+        
+        // remove ^../ if present
+        $controllerPath = $this->trimDirPath($controllerPath); 
 
         if (file_exists($controllerPath)) {
             if (!$options['force']) {
@@ -581,7 +592,10 @@ class Scaffold extends Component
 
         //Make Layouts dir
         $dirPathLayouts	= $options['viewsDir'] . '/layouts';
-
+        
+        // remove ^../ if present
+        $dirPathLayouts = $this->trimDirPath($dirPathLayouts);
+        
         //If dir doesn't exist we make it
         if (is_dir($dirPathLayouts) == false) {
             mkdir($dirPathLayouts);
@@ -669,6 +683,10 @@ class Scaffold extends Component
     {
 
         $dirPath = $options['viewsDir'] . $options['fileName'];
+        
+        // remove ^../ if present
+        $dirPath = $this->trimDirPath($dirPath);
+        
         if (is_dir($dirPath) == false) {
             mkdir($dirPath);
         }
@@ -806,6 +824,13 @@ class Scaffold extends Component
     {
 
         $dirPath = $options['viewsDir'] . $options['fileName'];
+        
+        
+        
+        // remove ^../ if present
+        $dirPath = $this->trimDirPath($dirPath); 
+        
+        
         if (is_dir($dirPath) == false) {
             mkdir($dirPath);
         }

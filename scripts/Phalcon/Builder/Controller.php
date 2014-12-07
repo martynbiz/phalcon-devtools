@@ -97,8 +97,11 @@ class Controller extends Component
         $name = str_replace(' ','_',$name);
 
         $className = Utils::camelize($name);
-
+        
         $controllerPath = $controllersDir . DIRECTORY_SEPARATOR . $className . "Controller.php";
+        
+        // remove ^../ if present
+        $controllerPath = $this->trimDirPath($controllerPath);
 
         $code = "<?php\n\n".$namespace."class ".$className."Controller extends ".$baseClass."\n{\n\n\tpublic function indexAction()\n\t{\n\n\t}\n\n}\n\n";
         $code = str_replace("\t", "    ", $code);
